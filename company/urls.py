@@ -1,9 +1,10 @@
 from django.contrib import admin
 from django.urls import path, include
-from .views import CompanyViewSet, CategoryViewSet, ProductViewSet, OrderViewSet, OrderItemsViewSet
+from .views import UserViewSet, CompanyViewSet, CategoryViewSet, ProductViewSet, OrderViewSet, OrderItemsViewSet
 from rest_framework import routers
 
 router = routers.DefaultRouter()
+router.register(r'user', UserViewSet)
 router.register(r'company', CompanyViewSet)
 router.register(r'category', CategoryViewSet)
 router.register(r'product', ProductViewSet)
