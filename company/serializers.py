@@ -1,12 +1,17 @@
 from rest_framework import serializers
 from .models import Company, Category, Product, Order,OrderItems 
 from django.contrib.auth.models import User
-
+from django.http import HttpResponse
 
 class UserSerializer(serializers.ModelSerializer):
     class Meta:
         model = User
         fields = '__all__'
+
+class CustomUserTokenSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = User
+        fields = ['is_staff']
 
 class CompanySerializer(serializers.ModelSerializer):
     class Meta:
