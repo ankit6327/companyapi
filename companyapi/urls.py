@@ -26,7 +26,7 @@ urlpatterns = [
     path('admin/', admin.site.urls),
     path('', include('company.urls')),
 #    path('api/token/', TokenObtainPairView.as_view(), name='token_obtain_pair'),
-    path('token/', obtain_jwt_token),
+    path('api/token/', obtain_jwt_token),
    # path('api/token/', views.TokenObtainPairPatchedView.as_view()),
     path('api/token/refresh/', TokenRefreshView.as_view(), name='token_refresh'),
     path('api/token/verify/', TokenVerifyView.as_view(), name='token_verify'),
