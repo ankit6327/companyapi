@@ -43,7 +43,7 @@ class Order(models.Model):
 class OrderItems(models.Model):
     product = models.ForeignKey(Product, on_delete=models.CASCADE)
     order = models.ForeignKey(Order, on_delete=models.CASCADE)
-
+    qty = models.IntegerField(null="True")
     def __self__(self):
         return self
 

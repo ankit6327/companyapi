@@ -3,15 +3,16 @@ from .models import Company, Category, Product, Order,OrderItems
 from django.contrib.auth.models import User
 from django.http import HttpResponse
 
-class UserSerializer(serializers.ModelSerializer):
-    class Meta:
-        model = User
-        fields = '__all__'
 
 class CustomUserTokenSerializer(serializers.ModelSerializer):
     class Meta:
         model = User
-        fields = ['is_staff']
+        fields = ['id','username','is_staff','is_active']
+
+class UserSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = User
+        fields = '__all__'
 
 class CompanySerializer(serializers.ModelSerializer):
     class Meta:
@@ -24,16 +25,19 @@ class CategorySerializer(serializers.ModelSerializer):
         fields = '__all__'
 
 class ProductSerializer(serializers.ModelSerializer):
+    user = CustomUserTokenSerializer(source='createdBy', read_only='True')
     class Meta:
         model = Product
-        fields = '__all__'
+        fields = ['name', 'category', 'createdBy', 'user']
 
 class OrderSerializer(serializers.ModelSerializer):
+    user = CustomUserTokenSerializer(source='createdBy', read_only='True')
     class Meta:
         model = Order
-        fields = '__all__'
+        fields = ['status', 'createdDate','createdBy', 'user']
 
 class OrderItemsSerializer(serializers.ModelSerializer):
+    order = OrderSerializer(source='order', read_only='True')
     class Meta:
         model = OrderItems
-        fields = '__all__'
+        fields = ['product', 'order', 'qty']
