@@ -24,20 +24,26 @@ class CategorySerializer(serializers.ModelSerializer):
         model = Category
         fields = '__all__'
 
+class OrderItemsByOrderIdSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = OrderItems
+        fields = ['id','product', 'order', 'qty']
+
 class ProductSerializer(serializers.ModelSerializer):
     user = CustomUserTokenSerializer(source='createdBy', read_only='True')
     class Meta:
         model = Product
-        fields = ['name', 'category', 'createdBy', 'user']
+        fields = ['id','name', 'category', 'createdBy', 'user']
 
 class OrderSerializer(serializers.ModelSerializer):
     user = CustomUserTokenSerializer(source='createdBy', read_only='True')
     class Meta:
         model = Order
-        fields = ['status', 'createdDate','createdBy', 'user']
-
+        fields = ['id','status', 'createdDate','createdBy', 'user']
+        
 class OrderItemsSerializer(serializers.ModelSerializer):
     order = OrderSerializer(source='order', read_only='True')
     class Meta:
         model = OrderItems
-        fields = ['product', 'order', 'qty']
+        fields = ['id','product', 'order', 'qty']
+
